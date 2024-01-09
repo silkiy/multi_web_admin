@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 
@@ -24,8 +25,23 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: Colors.white,
         items: [
           AdminMenuItem(
-            title: 'Categories',
-            icon: Icons.category,
+        title: 'Dashboard',
+            icon: Icons.dashboard,
+            route: '/',
+          ),
+          AdminMenuItem(
+            title: 'Vendors',
+            icon: CupertinoIcons.person_3,
+            route: '/',
+          ),
+          AdminMenuItem(
+            title: 'Withdrawal',
+            icon: CupertinoIcons.money_dollar,
+            route: '/',
+          ),
+          AdminMenuItem(
+            title: 'Orders',
+            icon: CupertinoIcons.shopping_cart,
             route: '/',
           ),
           AdminMenuItem(
@@ -34,13 +50,13 @@ class _MainScreenState extends State<MainScreen> {
             route: '/',
           ),
           AdminMenuItem(
-            title: 'Categories',
-            icon: Icons.category,
+            title: 'Product',
+            icon: Icons.shop,
             route: '/',
           ),
           AdminMenuItem(
-            title: 'Categories',
-            icon: Icons.category,
+            title: 'Upload banners',
+            icon: CupertinoIcons.add,
             route: '/',
           ),
         ],

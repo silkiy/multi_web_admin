@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import
 
 import 'dart:html';
 
@@ -23,59 +23,55 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   Widget _selectedItem = DashboardScreen();
 
-  screenSlector(item){
-    switch (item.route){
+  screenSlector(item) {
+    switch (item.route) {
       case DashboardScreen.routeName:
-      setState(() {
-        _selectedItem = DashboardScreen();
-      });
-      break;
+        setState(() {
+          _selectedItem = DashboardScreen();
+        });
+        break;
       case VendorScreen.routeName:
-      setState(() {
-        _selectedItem = VendorScreen();
-      });
-      break;
+        setState(() {
+          _selectedItem = VendorScreen();
+        });
+        break;
       case WithdrawalScreen.routeName:
-      setState(() {
-        _selectedItem = WithdrawalScreen();
-      });
-      break;
+        setState(() {
+          _selectedItem = WithdrawalScreen();
+        });
+        break;
       case OrderScreen.routeName:
-      setState(() {
-        _selectedItem = OrderScreen();
-      });
-      break;
+        setState(() {
+          _selectedItem = OrderScreen();
+        });
+        break;
       case CategoriesScreen.routeName:
-      setState(() {
-        _selectedItem = CategoriesScreen();
-      });
-      break;
+        setState(() {
+          _selectedItem = CategoriesScreen();
+        });
+        break;
       case ProductScreen.routeName:
-      setState(() {
-        _selectedItem = ProductScreen();
-      });
-      break;
+        setState(() {
+          _selectedItem = ProductScreen();
+        });
+        break;
       case UploadBannerScreen.routeName:
-      setState(() {
-        _selectedItem = UploadBannerScreen();
-      });
-      break;
+        setState(() {
+          _selectedItem = UploadBannerScreen();
+        });
+        break;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return AdminScaffold(
       backgroundColor: Colors.grey.shade200,
-      appBar: AppBar(
-        title: Text(
-          "Management",
-        ),
-      ),
       sideBar: SideBar(
         backgroundColor: Colors.white,
         items: [
           AdminMenuItem(
-        title: 'Dashboard',
+            title: 'Dashboard',
             icon: Icons.dashboard,
             route: DashboardScreen.routeName,
           ),
@@ -110,9 +106,36 @@ class _MainScreenState extends State<MainScreen> {
             route: UploadBannerScreen.routeName,
           ),
         ],
-        selectedRoute: '',onSelected: (item) {
+        selectedRoute: '',
+        onSelected: (item) {
           screenSlector(item);
         },
+        header: Container(
+          height: 50,
+          width: double.infinity,
+          color: const Color(0xff444444),
+          child: const Center(
+            child: Text(
+              'T.A.Shop',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+        footer: Container(
+          height: 50,
+          width: double.infinity,
+          color: const Color(0xff444444),
+          child: const Center(
+            child: Text(
+              'BY',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
       ),
       body: _selectedItem,
     );

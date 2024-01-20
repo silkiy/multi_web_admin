@@ -1,4 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class UploadBannerScreen extends StatefulWidget {
@@ -9,7 +12,21 @@ class UploadBannerScreen extends StatefulWidget {
 }
 
 class _UploadBannerScreenState extends State<UploadBannerScreen> {
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+
   dynamic _image;
+
+  String? fileName;
+
+  _uploadBannersToStorage(dynamic image) async {
+  Reference ref = _storage.ref().child('banners').child(fileName!);
+
+  UploadTask uploadTask =  ref.putData(image);
+
+  TaskSnapshot snapshot = await uploadTask;
+  String donwloadUrl = await snapshot.ref.getDownloadURL();
+  return donwloadUrl;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +63,17 @@ class _UploadBannerScreenState extends State<UploadBannerScreen> {
                           color: Colors.grey.shade800,
                         ),
                       ),
-                      child: Center(
-                        child: Text(
-                          "Banners",
-                          style: TextStyle(),
-                        ),
-                      ),
+                      child: _image != null
+                          ? Image.memory(
+                              _image,
+                              fit: BoxFit.cover,
+                            )
+                          : Center(
+                              child: Text(
+                                "Banner",
+                                style: TextStyle(),
+                              ),
+                            ),
                     ),
                     SizedBox(
                       height: 20,
@@ -60,6 +82,7 @@ class _UploadBannerScreenState extends State<UploadBannerScreen> {
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xFF26B4F1),
                       ),
+                      //Function di taruh sini karena kalau di taruh di atas tidak mau bejalan
                       onPressed: () async {
                         FilePickerResult? result =
                             await FilePicker.platform.pickFiles(
@@ -69,6 +92,7 @@ class _UploadBannerScreenState extends State<UploadBannerScreen> {
                         if (result != null) {
                           setState(() {
                             _image = result.files.first.bytes;
+                            fileName = result.files.first.name;
                           });
                         }
                       },

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:multi_web_admin/view/screens/main_screen.dart';
 
 void main() async {
@@ -29,8 +30,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        home: MainScreen());
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      home: MainScreen(),
+      builder: EasyLoading.init(),
+    );
   }
 }

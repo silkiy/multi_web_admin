@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class UploadBannerScreen extends StatefulWidget {
   static const String routeName = '/UploadBannerScreen';
@@ -31,11 +32,19 @@ class _UploadBannerScreenState extends State<UploadBannerScreen> {
   }
 
   uploadToFireStore() async {
+    EasyLoading.show();
     if (_image != null) {
       String imageUrl = await _uploadBannersToStorage(_image);
 
       await _firestore.collection('banners').doc(fileName).set(
         {'image': imageUrl},
+      ).whenComplete(
+        () {
+          EasyLoading.dismiss();
+          setState(() {
+            _image = null;
+          });
+        },
       );
     }
   }
